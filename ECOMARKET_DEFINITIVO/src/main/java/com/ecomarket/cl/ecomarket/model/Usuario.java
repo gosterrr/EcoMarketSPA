@@ -20,26 +20,46 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String rut, String nombre, String correo, String direccion, String telefono) {
-        this.rut = rut;
+        setRut(rut);
         this.nombre = nombre;
-        this.correo = correo;
+        setCorreo(correo);
         this.direccion = direccion;
-        this.telefono = telefono;
+        setTelefono(telefono);
     }
 
     public String getRut() { return rut; }
-    public void setRut(String rut) { this.rut = rut; }
+    public void setRut(String rut) throws Exception {
+        if (rut != null && rut.length() >= 9 && rut.length() <= 12) {
+            this.rut = rut;
+        } else {
+            throw new Exception("El RUT debe tener entre 9 y 12 caracteres.");
+        }
+    }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
     public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public void setCorreo(String correo) throws Exception {
+        if (correo != null && correo.contains("@") &&
+            (correo.endsWith(".com") || correo.endsWith(".cl"))) {
+            this.correo = correo;
+        } else {
+            throw new Exception("El correo debe contener '@' y terminar en '.com' o '.cl'.");
+        }
+    }
+
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
     public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setTelefono(String telefono) throws Exception {
+        if (telefono != null && telefono.matches("\\d{9}")) {
+            this.telefono = telefono;
+        } else {
+            throw new Exception("El teléfono debe contener exactamente 9 dígitos numéricos.");
+        }
+    }
 }
 
